@@ -74,7 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-for="file in documents" :key="file.name" class=" col-md-3 " >
+                    <div v-for="file in documents" :key="file.name" class=" col-md-3 ">
                         <div class="d-flex flex-column m-2">
                             <a class="cursor-click text-center text-decoration-none text-black" target="_blank"
                                :href="file.fullPath">

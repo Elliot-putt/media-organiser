@@ -423,7 +423,6 @@ body {
 }
 
 /*button moving border*/
-/* From uiverse.io */
 .fancy {
     background-color: transparent;
     border: 2px solid #000;
@@ -940,7 +939,6 @@ input[type]:checked ~ span.middle {
     }
 }
 /*bookings button*/
-/* From uiverse.io */
 .booking-button {
     display: inline-block;
     padding: 12px 24px;
@@ -1065,8 +1063,6 @@ input[type]:checked ~ span.middle {
 
 }
 /*//loader*/
-
-/* From uiverse.io by @satyamchaudharydev */
 .loader {
     --clr: #3498db;
     /* color of spining  */
