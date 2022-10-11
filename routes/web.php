@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::post('/logout', [LoginController::class, 'logout']);
+    Route::get('/stripe', [LoginController::class, 'stripe']);
 
 
     Route::controller(\App\Http\Controllers\UserController::class)->group(function() {

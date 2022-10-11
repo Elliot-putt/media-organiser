@@ -374,6 +374,26 @@ var map = {
 		"./resources/js/Pages/Auth/Login.vue",
 		"resources_js_Pages_Auth_Login_vue"
 	],
+	"./Auth/Stripe": [
+		"./resources/js/Pages/Auth/Stripe.vue",
+		"/js/vendor",
+		"resources_js_Pages_Auth_Stripe_vue"
+	],
+	"./Auth/Stripe.vue": [
+		"./resources/js/Pages/Auth/Stripe.vue",
+		"/js/vendor",
+		"resources_js_Pages_Auth_Stripe_vue"
+	],
+	"./Auth/Test": [
+		"./resources/js/Pages/Auth/Test.vue",
+		"/js/vendor",
+		"resources_js_Pages_Auth_Test_vue"
+	],
+	"./Auth/Test.vue": [
+		"./resources/js/Pages/Auth/Test.vue",
+		"/js/vendor",
+		"resources_js_Pages_Auth_Test_vue"
+	],
 	"./Home": [
 		"./resources/js/Pages/Home.vue",
 		"resources_js_Pages_Home_vue"
