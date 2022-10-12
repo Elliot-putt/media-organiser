@@ -1116,6 +1116,23 @@ input[type]:checked ~ span.middle {
     cursor: pointer;
     z-index: -1;
 }
+/*//strippee*/
+
+
+/* Padding for Stripe Element containers */
+.stripe-element-container {
+    padding-top: .55rem;
+    padding-bottom: .50rem;
+}
+
+/* Blue outline on focus */
+.StripeElement--focus {
+    border-color: #80BDFF;
+    outline:0;
+    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
 
 
 

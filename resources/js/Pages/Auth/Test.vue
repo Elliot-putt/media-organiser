@@ -1,15 +1,14 @@
 <template>
     <div class="card shadow row justify-content-center">
         <div class="col-2 p-4 mx-auto">
-            <div id="card"></div>
-            <label class="fs-3 text-muted my-1">Card Number</label>
-            <div id="card-number"></div>
-            <label class="fs-3 text-muted my-1">Card Expiry</label>
-            <div id="card-expiry"></div>
-            <label class="fs-3 text-muted my-1">Card CVC</label>
-            <div id="card-cvc"></div>
-            <div id="card-error"></div>
-            <button id="custom-button" class="btn btn-success mt-4" @click="createToken">Generate Token</button>
+            <label for="card-number" class="text-muted my-1">Card Number</label>
+            <div id="card-number" class="form-control py-2"></div>
+            <label for="card-expiry" class=" text-muted my-1">Card Expiry</label>
+            <div id="card-expiry" class="form-control py-2"></div>
+            <label for="card-cvc"  class=" text-muted my-1">Card CVC</label>
+            <div id="card-cvc" class="form-control py-2"></div>
+            <div id="card-error" class="my-2 text-center"></div>
+            <button id="custom-button" class="btn btn-primary mt-4 w-100" @click="createToken"><i class="fa-solid fa-credit-card me-2" style="color: #fce883"></i>Pay Now</button>
         </div>
     </div>
 
