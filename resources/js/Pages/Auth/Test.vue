@@ -1,21 +1,18 @@
 <template>
-    <!--    <div class="row justify-content-center col-4">-->
-    <!--        <div ref="card"></div>-->
-    <!--        <button @click="createToken">Submit</button>-->
-    <!--        <p class="text-danger" id="card-error">-->
-
-    <!--        </p>-->
-    <!--    </div>-->
-    <div>
-        <label>Card Number</label>
-        <div id="card-number"></div>
-        <label>Card Expiry</label>
-        <div id="card-expiry"></div>
-        <label>Card CVC</label>
-        <div id="card-cvc"></div>
-        <div id="card-error"></div>
-        <button id="custom-button" class="btn btn-success" @click="createToken">Generate Token</button>
+    <div class="card shadow row justify-content-center">
+        <div class="col-2 p-4 mx-auto">
+            <div id="card"></div>
+            <label class="fs-3 text-muted my-1">Card Number</label>
+            <div id="card-number"></div>
+            <label class="fs-3 text-muted my-1">Card Expiry</label>
+            <div id="card-expiry"></div>
+            <label class="fs-3 text-muted my-1">Card CVC</label>
+            <div id="card-cvc"></div>
+            <div id="card-error"></div>
+            <button id="custom-button" class="btn btn-success mt-4" @click="createToken">Generate Token</button>
+        </div>
     </div>
+
 </template>
 <script setup>
 import {ref, computed, onMounted, onBeforeUnmount} from "vue";
@@ -39,31 +36,36 @@ onMounted(() => {
     // Style Object documentation here: https://stripe.com/docs/js/appendix/style
     const style = {
         base: {
-            color: 'black',
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            iconColor: '#c4f0ff',
+            color: '#0000000',
+            fontWeight: '500',
+            fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+            fontSize: '20px',
             fontSmoothing: 'antialiased',
-            fontSize: '14px',
+            ':-webkit-autofill': {
+                color: '#fce883',
+            },
             '::placeholder': {
-                color: '#aab7c4',
+                color: '#15195A',
             },
         },
         invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a',
+            iconColor: '#FFC7EE',
+            color: '#FFC7EE',
         },
     };
-    cardNumber = stripeElements.value.create('cardNumber', {style});
-    cardNumber.mount('#card-number');
-    cardExpiry = stripeElements.value.create('cardExpiry', {style});
-    cardExpiry.mount('#card-expiry');
-    cardCvc = stripeElements.value.create('cardCvc', {style});
-    cardCvc.mount('#card-cvc');
+    cardNumber.value = stripeElements.value.create('cardNumber', {style, showIcon: true, placeholder: 'Card Number'});
+    cardNumber.value.mount('#card-number');
+    cardExpiry.value = stripeElements.value.create('cardExpiry', {style});
+    cardExpiry.value.mount('#card-expiry');
+    cardCvc.value = stripeElements.value.create('cardCvc', {style});
+    cardCvc.value.mount('#card-cvc');
 })
 onBeforeUnmount(() => {
     //possibly need .value
-    cardNumber.destroy();
-    cardExpiry.destroy();
-    cardCvc.destroy();
+    cardNumber.value.destroy();
+    cardExpiry.value.destroy();
+    cardCvc.value.destroy();
 })
 let createToken = async () => {
     const {token, error} = await stripe.createToken(cardNumber.value);
@@ -78,8 +80,9 @@ let createToken = async () => {
     // send it to your server
 }
 </script>
-<!--<script>-->
 
+<!--<script>-->
+<!--this script tag uses options api-->
 <!--let stripe = Stripe(`pk_test_51LifM0Lf3BQtS60274MGbMwTIpVFGbQOtdLbTBVfKgPHvZXJvYDICQ3Ud3pA3BApMp4yABaT4TeAODtXuJwzy9BK00cpsDp3hX`),-->
 <!--    elements = stripe.elements(),-->
 <!--    card = undefined;-->
