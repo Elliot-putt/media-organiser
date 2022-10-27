@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
-{
+class HomeController extends Controller {
+
     /**
      * Create a new controller instance.
      *
@@ -16,9 +16,23 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-
     public function index()
     {
         return \Inertia\Inertia::render('Home');
     }
+
+    public function api()
+    {
+        $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVU0VSSUQiOiIyOTU1M0I2MC00RTYyLTRBOEMtQjdBMi1GNDkwMTZFODgyRTQiLCJpYXQiOjE2NDYzMTM5NTYsImV4cCI6MTk2MTg4OTk1Nn0.D19Ly4EqrHJpz7G6p2hivhlGcdcMHQcKwQw0yBpntzk';
+        $object = new \stdClass();
+        $object->merchantShopperReference = "f5819e1a-b759-494b-b1f4-c7b3bafafd7c";
+        $object->tokenType = 'Recurring';
+        $object->cardInformation = ['cardholderName' => "Mr Joe Doe", 'brand' => "Visa", 'cardNumber' => '4124356798123456', 'expiryYear' => '25', 'expiryMonth' => '12'];
+        $json = json_encode($object);
+        $response = \Illuminate\Support\Facades\Http::withBody($json, 'application/json')->withToken($token)->post("https://sandbox.unify.truevo.com/payments/tokens/register");
+
+        dd($response->json());
+
+    }
+
 }
