@@ -48,9 +48,9 @@ class HomeController extends Controller {
         $response2 = \Illuminate\Support\Facades\Http::withBody($json2, 'application/json')->withToken($token)->withHeaders(['idempotencyKey' => $GUID])->post("https://sandbox.unify.truevo.com/payments/sale");
         //get request for trans status
         //05d3c6e3-d8fc-4617-8323-2ccc9e9810d7
-        $ob3 = new \stdClass();
-        $ob3->transactionUniqueIdentifier = "05d3c6e3-d8fc-4617-8323-2ccc9e9810d7" ;
-        $json3 = json_encode($ob3);
+        $objectGet = new \stdClass();
+        $objectGet->transactionUniqueIdentifier = $response2['transactionUniqueIdentifier'];
+        $json3 = json_encode($objectGet);
         $response3 = \Illuminate\Support\Facades\Http::withBody($json3, 'application/json')->withToken($token)->get("https://sandbox.unify.truevo.com/payments/status");
 
         dd($response3->json());
