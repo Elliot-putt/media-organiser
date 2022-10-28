@@ -42,12 +42,18 @@ class HomeController extends Controller {
         $ob->transaction = ["merchantReference" => "test-merchant-reference", 'paymentReference' => 'test-payment-reference', 'source' => 'ECOMMERCE'];
         $ob->transaction['amount'] = ["totalAmount" => 103.21, "currencyAlphaCode" => "GBP"];
         $ob->merchant = ['descriptor' => "Kick Comp 2", 'mid' => '00000562', 'tid' => '00009903'];
-        $ob->card['manual'] = ['cardholderName' => 'Mr John putt', 'number' => '4444333322221111', 'securityCode' => '651'];
+        $ob->card['manual'] = ['cardholderName' => 'Mr John putt', 'number' => '5284120000007791', 'securityCode' => '661'];
         $ob->card['manual']['expiry'] = ['month' => '03', 'year' => '26'];
         $json2 = json_encode($ob);
         $response2 = \Illuminate\Support\Facades\Http::withBody($json2, 'application/json')->withToken($token)->withHeaders(['idempotencyKey' => $GUID])->post("https://sandbox.unify.truevo.com/payments/sale");
+        //get request for trans status
+        //05d3c6e3-d8fc-4617-8323-2ccc9e9810d7
+        $ob3 = new \stdClass();
+        $ob3->transactionUniqueIdentifier = "05d3c6e3-d8fc-4617-8323-2ccc9e9810d7" ;
+        $json3 = json_encode($ob3);
+        $response3 = \Illuminate\Support\Facades\Http::withBody($json3, 'application/json')->withToken($token)->get("https://sandbox.unify.truevo.com/payments/status");
 
-        dd($response2->json());
+        dd($response3->json());
     }
 
 }
