@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller {
@@ -33,14 +34,18 @@ class HomeController extends Controller {
 
 //        dd($response->json());
 
+
+
+        $GUID = Uuid::uuid();
         $ob = new \stdClass();
-        $ob->transaction = ['paymentReference' => 'test-payment-reference', 'source' => 'ECOMMERCE'];
+        $ob->idempotencyKey = $GUID;
+        $ob->transaction = ["merchantReference" => "test-merchant-reference", 'paymentReference' => 'test-payment-reference', 'source' => 'ECOMMERCE'];
         $ob->transaction['amount'] = ["totalAmount" => 103.21, "currencyAlphaCode" => "GBP"];
         $ob->merchant = ['descriptor' => "Kick Comp 2", 'mid' => '00000562', 'tid' => '00009903'];
-        $ob->card['manual'] = ['cardholderName' => 'Mr John putt' , 'number' => '4444333322221111' , 'securityCode' => '651' ];
-        $ob->card['manual']['expiry'] = ['month' => '03' , 'year' => '26' ];
+        $ob->card['manual'] = ['cardholderName' => 'Mr John putt', 'number' => '4444333322221111', 'securityCode' => '651'];
+        $ob->card['manual']['expiry'] = ['month' => '03', 'year' => '26'];
         $json2 = json_encode($ob);
-        $response2 = \Illuminate\Support\Facades\Http::withBody($json2, 'application/json')->withToken($token)->post("https://sandbox.unify.truevo.com/payments/sale");
+        $response2 = \Illuminate\Support\Facades\Http::withBody($json2, 'application/json')->withToken($token)->withHeaders(['idempotencyKey' => $GUID])->post("https://sandbox.unify.truevo.com/payments/sale");
 
         dd($response2->json());
     }
