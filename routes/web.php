@@ -14,7 +14,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', [\App\Http\Controllers\HomeController::class, 'api'])->name('index');
+Route::post('/test', [\App\Http\Controllers\HomeController::class, 'api'])->name('index');
 Route::middleware('guest')->group(function() {
     /////////////////////////////////////////////
     ////////////username/password Index//////////

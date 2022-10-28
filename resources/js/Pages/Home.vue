@@ -8,6 +8,7 @@
         <div class="row justify-content-center full">
             <div class="col-md-5 col-10 d-flex mx-auto my-auto ">
                 <div class="mx-auto">
+                    <button @click="submit"></button>
                     <h1 class="text-purple">
                         Online Media Organiser <br> <span class="text-red">for all service based users</span></h1>
                     <p class="text-secondary">
@@ -119,11 +120,17 @@
 import imageSmall from "../../../public/images/singlemedialogo.png"
 import {computed, ref} from "vue";
 import {usePage} from "@inertiajs/inertia-vue3";
+import {useForm} from "@inertiajs/inertia-vue3"
 
 const username = computed(() => {
     return usePage().props.value.auth.user.username
 });
-
+let form = useForm({
+    notes: '',
+});
+let submit = () =>{
+    form.post('/test');
+}
 let scrolled = ref(true);
 </script>
 

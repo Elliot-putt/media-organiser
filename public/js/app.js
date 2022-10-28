@@ -394,6 +394,14 @@ var map = {
 		"/js/vendor",
 		"resources_js_Pages_Auth_Test_vue"
 	],
+	"./Auth/Truevo": [
+		"./resources/js/Pages/Auth/Truevo.vue",
+		"resources_js_Pages_Auth_Truevo_vue"
+	],
+	"./Auth/Truevo.vue": [
+		"./resources/js/Pages/Auth/Truevo.vue",
+		"resources_js_Pages_Auth_Truevo_vue"
+	],
 	"./Home": [
 		"./resources/js/Pages/Home.vue",
 		"resources_js_Pages_Home_vue"
