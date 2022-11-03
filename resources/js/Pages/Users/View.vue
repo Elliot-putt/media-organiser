@@ -3,6 +3,7 @@
         <title>Users</title>
         <meta type="description" content="Information about my app" head-key="description">
     </Head>
+
     <div class="row justify-content-center">
         <div class="col-10 col-md-12 mt-3">
             <TitleLayout title="Users"
@@ -48,6 +49,7 @@ import {ref, watch} from "vue";
 import {Inertia} from "@inertiajs/inertia";
 import throttle from "lodash/throttle"
 import TitleLayout from "../../Shared/TitleLayout";
+import Message from '../../Components/Message'
 
 
 let props = defineProps({

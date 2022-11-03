@@ -19,6 +19,7 @@
 <script setup>
 import Nav from "./Nav";
 import Footer from "./Footer";
+import Alerts from "../Components/Alerts";
 
 </script>
 

@@ -3,6 +3,7 @@
         <title>Create User</title>
         <meta type="description" content="Creating a user in my app" head-key="description">
     </Head>
+    <Alerts/>
     <h3>Create new User</h3>
     <form @submit.prevent="submit">
         <div class="row justify-content-center">
@@ -18,7 +19,7 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <input type="text" name="name" class="form-control" required
+                                <input type="text" name="name" class="form-control"
                                        :class="form.errors.name ? 'border-danger' : '' " id="name"
                                        placeholder="Please enter a name" v-model="form.name">
 
@@ -31,7 +32,7 @@
                                      class="text-danger fs-6 mx-2"></div>
                             </div>
                             <div class="input-group mb-3">
-                                <input type="email" name="email" class="form-control" required
+                                <input type="email" name="email" class="form-control"
                                        :class="form.errors.email ? 'border-danger' : '' " id="email"
                                        placeholder="Please enter a valid email" v-model="form.email">
                             </div>
@@ -44,7 +45,7 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <input type="text" name="username" class="form-control" required
+                                <input type="text" name="username" class="form-control"
                                        :class="form.errors.username ? 'border-danger' : '' " id="username"
                                        placeholder="Please enter a username" v-model="form.username">
 
@@ -57,7 +58,7 @@
                                      class="text-danger fs-6 mx-2"></div>
                             </div>
                             <div class="input-group mb-3">
-                                <input type="password" name="password" required class="form-control"
+                                <input type="password" name="password" class="form-control"
                                        :class="form.errors.password ? 'border-danger' : '' " id="password"
                                        placeholder="Please enter a Password" v-model="form.password">
                             </div>
@@ -75,6 +76,7 @@
 
 <script setup>
 import {useForm} from "@inertiajs/inertia-vue3"
+import Alerts from '../../Components/Alerts'
 
 let form = useForm({
     name: '',
@@ -84,6 +86,6 @@ let form = useForm({
 });
 let submit = () => {
 
-    form.post('/users', form);
+    form.post('/users');
 }
 </script>

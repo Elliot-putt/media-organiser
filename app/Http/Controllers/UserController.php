@@ -36,13 +36,17 @@ class UserController extends Controller {
 
     public function store(Request $request)
     {
-
+        if($request->name == 'elliot')
+        {
+            return back()->with('success_message', 'This name is already taken');
+        }
         $request->validate([
             'name' => 'required',
             'username' => 'nullable|string',
             'email' => 'email|required',
             'password' => 'required',
         ]);
+
         $user = \App\Models\User::create([
             'name' => $request->name,
             'username' => $request->username,

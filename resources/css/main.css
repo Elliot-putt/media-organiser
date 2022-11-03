@@ -159,9 +159,6 @@ html {
     border-radius: 3px;
 }
 
-ul {
-    list-style-type: none;
-}
 
 body {
     font-family: JetBrains Mono, sans-serif;
@@ -285,6 +282,7 @@ body {
 .cursor-blocked {
     cursor: not-allowed;
 }
+
 .cursor-none {
     cursor: default !important;
 }
@@ -602,7 +600,7 @@ input[type]:checked ~ span.middle {
     transition: transform 0.2s ease;
 }
 
-.slide-enter,
+.slide-enter-from,
 .slide-leave-to {
     transform: translateX(-100%);
     transition: all 200ms ease-in 0s
@@ -616,7 +614,7 @@ input[type]:checked ~ span.middle {
     top: 0;
     left: 0;
     cursor: pointer;
-    z-index: 1;
+    z-index: 10;
 }
 
 /*homepage card-css*/
@@ -938,6 +936,7 @@ input[type]:checked ~ span.middle {
         opacity: 0;
     }
 }
+
 /*bookings button*/
 .booking-button {
     display: inline-block;
@@ -951,7 +950,8 @@ input[type]:checked ~ span.middle {
     color: black;
     z-index: 0;
 }
-.booking-button-disabled{
+
+.booking-button-disabled {
     display: inline-block;
     padding: 12px 24px;
     border: 1px solid #4f4f4f;
@@ -963,7 +963,8 @@ input[type]:checked ~ span.middle {
     color: black;
     z-index: 0;
 }
-.booking-button-disabled :before{
+
+.booking-button-disabled :before {
     content: "";
     position: absolute;
     left: 50%;
@@ -977,6 +978,7 @@ input[type]:checked ~ span.middle {
     transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
     z-index: -1;
 }
+
 .booking-button:before {
     content: "";
     position: absolute;
@@ -1023,10 +1025,12 @@ input[type]:checked ~ span.middle {
     background-color: var(--main_green);
     transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
-.box{
+
+.box {
     width: 100%;
     height: 100%;
 }
+
 /*search box*/
 .input-search {
     line-height: 28px;
@@ -1055,13 +1059,15 @@ input[type]:checked ~ span.middle {
     opacity: 0;
     transition: opacity .3s;
 }
+
 /*//folder name*/
-.folder-name{
+.folder-name {
     position: relative;
-    right:76%;
-    bottom:9rem;
+    right: 76%;
+    bottom: 9rem;
 
 }
+
 /*//loader*/
 .loader {
     --clr: #3498db;
@@ -1110,12 +1116,13 @@ input[type]:checked ~ span.middle {
     }
 }
 
-.backdrop{
+.backdrop {
     background-color: rgba(0, 0, 0, .6) !important;
     opacity: 60%;
     cursor: pointer;
     z-index: -1;
 }
+
 /*//strippee*/
 
 
@@ -1128,9 +1135,44 @@ input[type]:checked ~ span.middle {
 /* Blue outline on focus */
 .StripeElement--focus {
     border-color: #80BDFF;
-    outline:0;
-    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* Alerts */
+
+
+.alerts {
+    width: 50%;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px 5px #ccc;
+    position: fixed;
+    top: 15%;
+    left: 25%;
+    z-index: 1;
+}
+
+/*alerts styles for component handlers*/
+.alert-colour-success {
+    border-left: 5px solid #178344;
+    border-radius: 3px;
+    background-color: #a8f0c6;
+}
+
+.alert-colour-danger {
+    border-left: 5px solid #8f130c;
+    border-radius: 3px;
+    background-color: #f7a7a3;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
 }
 
 

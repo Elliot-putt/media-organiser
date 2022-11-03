@@ -121,10 +121,12 @@ import imageSmall from "../../../public/images/singlemedialogo.png"
 import {computed, ref} from "vue";
 import {usePage} from "@inertiajs/inertia-vue3";
 import {useForm} from "@inertiajs/inertia-vue3"
+import Message from '../Components/Message'
 
 const username = computed(() => {
     return usePage().props.value.auth.user.username
 });
+
 let form = useForm({
     notes: '',
 });

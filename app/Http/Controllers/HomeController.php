@@ -37,7 +37,7 @@ class HomeController extends Controller {
         $response = \Illuminate\Support\Facades\Http::withBody($json2, 'application/json')->withToken($token)->withHeaders(['idempotencyKey' => $GUID])->post("https://unify.truevo.com/payments/sale");
 
         $responseGet = \Illuminate\Support\Facades\Http::withToken($token)->get("https://unify.truevo.com/payments/status?transactionUniqueIdentifier={$response['transactionUniqueIdentifier']}");
-        
+
         //refunds
         $GUID2 = Uuid::uuid();
         $obje = new \stdClass();
