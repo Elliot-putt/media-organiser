@@ -23,7 +23,6 @@
                                 <span class="bottom-key-2"></span>
                             </Link>
                         </div>
-
                     </div>
                     <div class="d-flex justify-content-end my-4">
                         <Link as="button" href="/media" class="cssbuttons-io-button"> Get started

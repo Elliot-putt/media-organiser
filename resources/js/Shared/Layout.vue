@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <Nav/>
     </div>
-    <div class="col-md-11 my-2 mx-auto " style="min-height: 85vh; background: #252525">
+    <div class="col-md-11 my-2 mx-auto " style="min-height: 85vh; ">
         <slot/>
 
     </div>
