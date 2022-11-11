@@ -11,8 +11,7 @@
 
     </div>
     <div class="position-relative bottom-0 h-100 w-100 mt-5">
-            <Footer  ></Footer>
-
+            <Footer></Footer>
     </div>
 </template>
 
