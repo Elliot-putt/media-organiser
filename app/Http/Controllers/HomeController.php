@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Dflydev\DotAccessData\Data;
 use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HomeController extends Controller {
 
@@ -55,8 +57,9 @@ class HomeController extends Controller {
 
     }
 
-    public function api()
+    public function api(Request $request)
     {
+        dd($request->all());
         //Todo:: Add merchantShopperReference field to user migrations
         $merchantShopperReference = 'kick_comp_' . strtolower(auth()->user()->name) . '_' . auth()->user()->id;
         $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVU0VSSUQiOiJGQjc3NkY4My0zRjI1LTQ1NjQtQjY1My1DQ0VFNENCNThBMjYiLCJleHAiOjE5ODI1OTA1ODR9.ZMZSakOwVCoe-j8ZYMIlk2BNnzvNvIpSTiycRM_GQeo';
@@ -152,6 +155,15 @@ class HomeController extends Controller {
         $response3 = \Illuminate\Support\Facades\Http::withToken($token)->get("https://sandbox.unify.truevo.com/payments/status?transactionUniqueIdentifier={$response2['transactionUniqueIdentifier']}");
 
         dd($response3->json());
+    }
+
+    public function tiny()
+    {
+        return Inertia::render('Auth/tiny');
+    }
+    public function mce()
+    {
+        return Inertia::render('Auth/mce');
     }
 
 }

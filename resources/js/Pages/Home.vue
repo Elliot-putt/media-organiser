@@ -108,46 +108,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="border border-white bg-black p-0 border-2 rounded position-relative overflow-hidden"
-                 style="width: 300px">
-                <div id="bannerFlash">
-                    <div class="banner"><span class="fw-bold">Flash Competition</span></div>
-                </div>
-                <div id="bannerDrawToday">
-                    <button class="btn btn-green fw-bold top-right p-1 rounded-start rounded-0 fs-6">Draw Today</button>
-                </div>
-                <div class="d-flex flex-column justify-content-between">
-                    <img @dragstart.prevent
-                         src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                         class="img-featured">
-
-                    <div class="d-block py-3 w-100 bg-red rounded-0 text-center">
-
-                        time
-                    </div>
-                    <div class="p-2 mt-3 mb-5">
-                        <p class="text-white text-center mb-1 "><span class="fw-bolder fs-5">£0.85 </span> <span
-                            class="text-grey ">per Entry</span></p>
-                        <p class="fw-bolder text-white mb-2 text-center fs-4">
-                            Working title here
-                        </p>
-                        <div class="progress p-1  bg-red" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" aria-label="Example 20px high"
-                                 style="width: 25%; background:#252525; " aria-valuenow="25" aria-valuemin="0"
-                                 aria-valuemax="100">
-                            </div>
-                            <p class=" text-white ms-auto fs-6 " style="margin-top: -5px">993 / 1000</p>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="btn btn-red py-3 rounded-top rounded-0 px-5 w-100 fw-bolder">
-                            Enter now
-                        </button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -156,14 +116,16 @@
 </template>
 <script setup>
 import imageSmall from "../../../public/images/singlemedialogo.png"
-import {computed, ref} from "vue";
+import {computed, onBeforeMount, onMounted, ref} from "vue";
 import {usePage} from "@inertiajs/inertia-vue3";
 import {useForm} from "@inertiajs/inertia-vue3"
 import Message from '../Components/Message'
 
+
 const username = computed(() => {
     return usePage().props.value.auth.user.username
 });
+let page = usePage().props.value;
 
 let form = useForm({
     notes: '',
@@ -171,6 +133,7 @@ let form = useForm({
 let submit = () => {
     form.post('/test');
 }
+
+
 let scrolled = ref(true);
 </script>
-

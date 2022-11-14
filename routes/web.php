@@ -15,6 +15,8 @@ use Inertia\Inertia;
 |
 */
 Route::post('/test', [\App\Http\Controllers\HomeController::class, 'api'])->name('index');
+Route::get('/editor', [\App\Http\Controllers\HomeController::class, 'tiny'])->name('tiny');
+Route::get('/mce', [\App\Http\Controllers\HomeController::class, 'mce'])->name('tiny');
 Route::middleware('guest')->group(function() {
     /////////////////////////////////////////////
     ////////////username/password Index//////////

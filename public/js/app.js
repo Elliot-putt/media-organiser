@@ -582,6 +582,26 @@ var map = {
 		"./resources/js/Pages/Auth/Truevo.vue",
 		"resources_js_Pages_Auth_Truevo_vue"
 	],
+	"./Auth/mce": [
+		"./resources/js/Pages/Auth/mce.vue",
+		"/js/vendor",
+		"resources_js_Pages_Auth_mce_vue"
+	],
+	"./Auth/mce.vue": [
+		"./resources/js/Pages/Auth/mce.vue",
+		"/js/vendor",
+		"resources_js_Pages_Auth_mce_vue"
+	],
+	"./Auth/tiny": [
+		"./resources/js/Pages/Auth/tiny.vue",
+		"/js/vendor",
+		"resources_js_Pages_Auth_tiny_vue"
+	],
+	"./Auth/tiny.vue": [
+		"./resources/js/Pages/Auth/tiny.vue",
+		"/js/vendor",
+		"resources_js_Pages_Auth_tiny_vue"
+	],
 	"./Home": [
 		"./resources/js/Pages/Home.vue",
 		"resources_js_Pages_Home_vue"
