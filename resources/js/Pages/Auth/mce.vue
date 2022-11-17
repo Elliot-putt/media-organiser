@@ -1,20 +1,18 @@
 <template>
     <div id="app">
-        <editor
+        <Editor v-model="form.description" api-key="1pwifg6yi8kznrm8fx3n591y166a1gnuj5atlt4rlaawk0jk"
             :init="{
-        plugins: 'lists link image table code help wordcount'
+        plugins: 'lists link image table code help ',  branding: false
       }"
         />
     </div>
 </template>
 
-<script>
+<script setup>
 import Editor from '@tinymce/tinymce-vue'
+import {useForm} from "@inertiajs/inertia-vue3";
 
-export default {
-    name: 'app',
-    components: {
-        'editor': Editor
-    }
-}
+let form = useForm({
+    description:'',
+})
 </script>

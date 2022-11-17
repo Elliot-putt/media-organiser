@@ -8,7 +8,6 @@
     </div>
     <div class="col-md-11 my-2 mx-auto " style="min-height: 85vh; ">
         <slot/>
-
     </div>
     <div class="position-relative bottom-0 h-100 w-100 mt-5">
             <Footer></Footer>
