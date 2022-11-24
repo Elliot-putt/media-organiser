@@ -1286,6 +1286,20 @@ input[type]:checked ~ span.middle {
     text-decoration: none;
 }
 
+.btn-theme-colour{
+    transition: 0.5s;
+    text-transform: uppercase;
+    color: #fff !important;
+    box-shadow: 0 0 20px #eee;
+    background-size: 200% auto;
+    background-image: linear-gradient(to right, #3339a9 0%, #EC2AB7  51%, #3339a9  100%);
+}
+.btn-theme-colour:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
 
 
 

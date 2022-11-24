@@ -53,6 +53,7 @@
                 </div>
             </div>
             <div>
+                <button class="btn btn-theme-colour"><strong>Enter Now</strong></button>
                 <button class="btn btn-grad"><strong>Enter Now</strong></button>
             </div>
             <button @click="addSuccess">add first</button>
