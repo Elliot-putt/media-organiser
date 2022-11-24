@@ -17,6 +17,23 @@ use Inertia\Inertia;
 Route::post('/test', [\App\Http\Controllers\HomeController::class, 'api'])->name('index');
 Route::get('/editor', [\App\Http\Controllers\HomeController::class, 'tiny'])->name('tiny');
 Route::get('/mce', [\App\Http\Controllers\HomeController::class, 'mce'])->name('tiny');
+
+Route::post('/add', function() {
+    \Illuminate\Support\Facades\Session::flash('success_message', 'helooo');
+});
+Route::post('/second', function() {
+    \Illuminate\Support\Facades\Session::flash('success_message', 'Has the message changed');
+});
+Route::post('/danger', function() {
+    \Illuminate\Support\Facades\Session::flash('danger_message', 'redddddddd');
+});
+Route::get('/remove/session/', function(\Illuminate\Http\Request $request) {
+    if(\Illuminate\Support\Facades\Session::get($request->key))
+    {
+        \Illuminate\Support\Facades\Session::forget($request->key);
+    }
+});
+
 Route::middleware('guest')->group(function() {
     /////////////////////////////////////////////
     ////////////username/password Index//////////
@@ -36,7 +53,6 @@ Route::middleware('auth')->group(function() {
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::post('/logout', [LoginController::class, 'logout']);
     Route::get('/stripe', [LoginController::class, 'stripe']);
-
 
     Route::controller(\App\Http\Controllers\UserController::class)->group(function() {
         Route::get('/users', 'index')->name('users.index');
