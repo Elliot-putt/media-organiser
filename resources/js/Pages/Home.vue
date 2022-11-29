@@ -10,6 +10,7 @@
             <div class="col-md-5 col-10 d-flex mx-auto my-auto ">
                 <div class="mx-auto">
                     <button @click="submit"></button>
+                    <a href="/viva/checkout/redirect">Api Test</a>
                     <h1 class="text-purple">
                         Online Media Organiser <br> <span class="text-red">for all service based users</span></h1>
                     <p class="text-secondary">
@@ -52,13 +53,6 @@
                     </Link>
                 </div>
             </div>
-            <div>
-                <button class="btn btn-theme-colour"><strong>Enter Now</strong></button>
-                <button class="btn btn-grad"><strong>Enter Now</strong></button>
-            </div>
-            <button @click="addSuccess">add first</button>
-            <button @click="addSecond">add second</button>
-            <button @click="addDanger">add danger</button>
             <div class="text-center scroll d-none d-md-block" v-show="scrolled" @click="scrolled.value = !scrolled ">
                 <section id="section07" class="demo">
                     <a href="#card"><span></span><span></span><span></span>Scroll</a>

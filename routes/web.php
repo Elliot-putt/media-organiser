@@ -14,7 +14,8 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/test', [\App\Http\Controllers\HomeController::class, 'api'])->name('index');
+Route::get('/viva/checkout/redirect', [\App\Http\Controllers\HomeController::class, 'api'])->name('index');
+Route::get('/viva/checkout/callback', [\App\Http\Controllers\HomeController::class, 'confirm'])->name('viva.confirm');
 Route::get('/editor', [\App\Http\Controllers\HomeController::class, 'tiny'])->name('tiny');
 Route::get('/mce', [\App\Http\Controllers\HomeController::class, 'mce'])->name('tiny');
 

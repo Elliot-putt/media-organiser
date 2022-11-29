@@ -4,8 +4,14 @@ namespace App\Http\Controllers;
 
 use Dflydev\DotAccessData\Data;
 use Faker\Provider\Uuid;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Sebdesign\VivaPayments\Enums\TransactionStatus;
+use Sebdesign\VivaPayments\Facades\Viva;
+use Sebdesign\VivaPayments\Requests\CreatePaymentOrder;
+use Sebdesign\VivaPayments\Requests\Customer;
+use Sebdesign\VivaPayments\VivaException;
 
 class HomeController extends Controller {
 
@@ -59,6 +65,83 @@ class HomeController extends Controller {
 
     public function api(Request $request)
     {
+        //env
+
+        //VIVA_CLIENT_ID="1vwzg5unet444lc3nj4evhgygjgq71upi4d54one36up2.apps.vivapayments.com"
+        //VIVA_CLIENT_SECRET="c6qG7PAihu3SoZqs7b6ME9jM0ftE3D"
+        //VIVA_API_KEY="rU0UC@"
+        //VIVA_MERCHANT_ID="5a48ceed-d5cb-47df-b8c3-295af70cc01e"
+        //VIVA_ENVIRONMENT="demo"
+
+        //services.php
+        
+//        'viva' => [
+//        'api_key' => env('VIVA_API_KEY'),
+//        'merchant_id' => env('VIVA_MERCHANT_ID'),
+//        'environment' => env('VIVA_ENVIRONMENT', 'production'),
+//        'client_id' => env('VIVA_CLIENT_ID'),
+//        'client_secret' => env('VIVA_CLIENT_SECRET'),
+//        'isv_partner_id' => env('VIVA_ISV_PARTNER_ID'),
+//        'isv_partner_api_key' => env('VIVA_ISV_PARTNER_API_KEY'),
+//    ],
+
+
+        try
+        {
+            $orderCode = Viva::orders()->create(new CreatePaymentOrder(
+                amount: 1000,
+                customerTrns: 'Short description of purchased items/services to display to your customer',
+                customer: new Customer(
+                    email: 'johdoe@vivawallet.com',
+                    fullName: 'John Doe',
+                    countryCode: 'GB',
+                    requestLang: 'en-GB',
+                ),
+            ));
+        } catch(VivaException $e)
+        {
+            report($e);
+
+            return back()->withErrors($e->getMessage());
+        }
+
+        $redirectUrl = Viva::orders()->redirectUrl(
+            ref: $orderCode,
+            color: '0000ff',
+            paymentMethod: 23,
+        );
+
+        return redirect()->away($redirectUrl);
+    }
+
+    /**
+     * Redirect from the checkout page and get the order details from the API.
+     */
+    public function confirm(Request $request)
+    {
+        try
+        {
+            $transaction = Viva::transactions()->retrieve($request->input('t'));
+
+        } catch(VivaException $e)
+        {
+            report($e);
+
+            return back()->withErrors($e->getMessage());
+        }
+
+        $status = match ($transaction->statusId)
+        {
+            TransactionStatus::PaymentPending => 'The order is pending.',
+            TransactionStatus::PaymentSuccessful => 'The order is paid.',
+            TransactionStatus::Error => 'The order was not paid.',
+        };
+
+        return to_route('home')->with('success_message', $status);
+    }
+
+    public function fullPaymentApi(Request $request)
+    {
         dd($request->all());
         //Todo:: Add merchantShopperReference field to user migrations
         $merchantShopperReference = 'kick_comp_' . strtolower(auth()->user()->name) . '_' . auth()->user()->id;
@@ -111,7 +194,6 @@ class HomeController extends Controller {
         // the user will need a cvc number to proceed with the payment so in the view if they have a token and a card ending in "5678" then say fill in the cvc number that's belongs to that card
         // else have a button to change this payment method which will return another form where they are back to stage one.
         // as seen in the code above if they are paying via token payment and cvc pass a tokenPayment key instead of card details
-
     }
 
     public function successfull_transaction()
@@ -161,6 +243,7 @@ class HomeController extends Controller {
     {
         return Inertia::render('Auth/tiny');
     }
+
     public function mce()
     {
         return Inertia::render('Auth/mce');
