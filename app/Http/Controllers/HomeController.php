@@ -74,7 +74,7 @@ class HomeController extends Controller {
         //VIVA_ENVIRONMENT="demo"
 
         //services.php
-        
+
 //        'viva' => [
 //        'api_key' => env('VIVA_API_KEY'),
 //        'merchant_id' => env('VIVA_MERCHANT_ID'),
@@ -91,6 +91,7 @@ class HomeController extends Controller {
             $orderCode = Viva::orders()->create(new CreatePaymentOrder(
                 amount: 1000,
                 customerTrns: 'Short description of purchased items/services to display to your customer',
+                merchantTrns: 'Short description of purchased items/services to display to your customer',
                 customer: new Customer(
                     email: 'johdoe@vivawallet.com',
                     fullName: 'John Doe',
