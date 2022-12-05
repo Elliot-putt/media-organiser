@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Jobs\FileUpload;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,22 @@ Route::get('/remove/session/', function(\Illuminate\Http\Request $request) {
     {
         \Illuminate\Support\Facades\Session::forget($request->key);
     }
+});
+Route::post('/file', function(\Illuminate\Http\Request $request) {
+
+    dispatch(new FileUpload($request->file('files'), auth()->user(), 'file'))->onQueue('high')->afterResponse();
+
+    return back();
+
+});
+Route::post('/file/move', function(\Illuminate\Http\Request $request) {
+    $draggable = \Spatie\MediaLibrary\MediaCollections\Models\Media::whereId($request->draggable)->first();
+    $dropped = \Spatie\MediaLibrary\MediaCollections\Models\Media::whereId($request->dropped)->first();
+    $media = auth()->user()->photos()->pluck('id')->toArray();
+    $arrayItemToBeReplaced = array_search($dropped->id, $media);
+    $itemToBeBefore = array_search($draggable->id, $media);
+    \App\Models\User::moveElement($media,   $itemToBeBefore ,$arrayItemToBeReplaced  );
+    Media::setNewOrder(array_values($media));
 });
 
 Route::middleware('guest')->group(function() {

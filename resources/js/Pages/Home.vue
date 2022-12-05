@@ -3,7 +3,7 @@
         <title>Home</title>
         <meta type="description" content="Information about my homepage" head-key="description">
     </Head>
-    <Alerts />
+    <Alerts/>
     <!--    if you have a company or are assigned one show company stats -->
     <div class="container-fluid ">
         <div class="row justify-content-center full">
@@ -59,62 +59,91 @@
                 </section>
             </div>
         </div>
-        <div class="row justify-content-center" id="card">
-            <div class="col-12 my-auto justify-content-center row">
-                <div class="col-md-4 col-10 my-4 my-md-0  justify-content-center d-flex">
-                    <div class="card-box shadow">
-                        <div class="body-bottom">
-                            <div class="card-details">
-                                <i class="fa-solid fa-magnifying-glass text-center fs-2 text-grey"></i>
-                                <p class="fs-3 text-blue">View all Users</p>
-                            </div>
-                            <div>
-                                <p class="text-muted">Finding a User is easy. Search for an name you would like to
-                                    find , click on the options menu to proceed and find out more.</p>
-                            </div>
-                        </div>
-                        <Link as="a" href="/users" class="card-button text-center btn">More info</Link>
-                    </div>
-                </div>
-                <div class="col-md-4 col-10 my-4 my-md-0 justify-content-center d-flex">
-                    <div class="card-box shadow">
-                        <div class="body-bottom">
-                            <div class="card-details">
-                                <i class="fa-solid fa-building text-center fs-2 text-grey"></i>
-                                <p class="fs-3 text-blue">Organise media</p>
-                            </div>
-                            <div>
-                                <p class="text-muted">Organising Your Media couldn't be easier. Either search for your
-                                    media and click ahead , else upload your media in your specific
-                                    area.Click below to find out more.</p>
+        <div>
+            <div class="row justify-content-center my-4">
+                <div class="col-10">
+                    <label for="image-upload" class="form-label fw-bold text-black">Upload Featured
+                        Photos</label>
+                    <input type="file" @input="uploadFiles($event.target.files)" multiple
+                           class="form-control" id="image-upload" name="files[]"
+                           accept='file_extension|image/*|media_type'>
+                    <div class="my-4 row justify-content-start ">
+                        <div v-for="file in files" :key="file.id" class="col-md-2  drop-zone"
+                             @drop="onDrop($event.target, file.id)" @dragenter.prevent="setActive"
+                             @dragover.prevent="setActive" @dragleave.prevent="setInactive">
+                            <div class="drag-el mx-2">
+                                <div class="d-flex justify-content-between mb-2 mx-2">
+                                    <p class="text-dark-blue-purple fs-5 cursor-click " v-text="'Photo ' + file.order"></p>
+                                </div>
+                                <div :draggable="!processing" @dragstart="startDrag($event.target, file.id)" style="z-index: -1"
+                                     :class="[active === true ? 'drop-image' : '' , processing === true || form.processing === true ? 'drop-image' : 'cursor-click']">
+                                    <div class="loader" v-if="processing || form.processing"></div>
+                                    <img :src="file.url" draggable="false" @dragstart.prevent class="img-featured"
+                                         style="z-index: 11">
+                                </div>
 
                             </div>
-                        </div>
-                        <Link as="a" href="/media" class="card-button text-center btn">More info</Link>
-                    </div>
-                </div>
-                <div class="col-md-4 col-10 my-4 my-md-0  justify-content-center d-flex">
-                    <div class="card-box shadow">
-                        <div class="body-bottom">
-                            <div class="card-details">
-                                <i class="fa-solid fa-user text-center fs-2 text-grey"></i>
-                                <p class="fs-3 text-blue">Adding Members</p>
-                            </div>
-                            <div>
-                                <p class="text-muted">Adding members to this application is simple! Either create the
-                                    user an account or click invite a user and it will send them a login link.</p>
 
-                            </div>
                         </div>
-                        <Link as="a" href="/users" class="card-button text-center btn">More info</Link>
+                        <p v-if="files.length === 0" class="text-center text-muted">No photo's for
+                            this competition.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row justify-content-center" id="card">
+        <div class="col-12 my-auto justify-content-center row">
+            <div class="col-md-4 col-10 my-4 my-md-0  justify-content-center d-flex">
+                <div class="card-box shadow">
+                    <div class="body-bottom">
+                        <div class="card-details">
+                            <i class="fa-solid fa-magnifying-glass text-center fs-2 text-grey"></i>
+                            <p class="fs-3 text-blue">View all Users</p>
+                        </div>
+                        <div>
+                            <p class="text-muted">Finding a User is easy. Search for an name you would like to
+                                find , click on the options menu to proceed and find out more.</p>
+                        </div>
+                    </div>
+                    <Link as="a" href="/users" class="card-button text-center btn">More info</Link>
+                </div>
+            </div>
+            <div class="col-md-4 col-10 my-4 my-md-0 justify-content-center d-flex">
+                <div class="card-box shadow">
+                    <div class="body-bottom">
+                        <div class="card-details">
+                            <i class="fa-solid fa-building text-center fs-2 text-grey"></i>
+                            <p class="fs-3 text-blue">Organise media</p>
+                        </div>
+                        <div>
+                            <p class="text-muted">Organising Your Media couldn't be easier. Either search for your
+                                media and click ahead , else upload your media in your specific
+                                area.Click below to find out more.</p>
 
+                        </div>
+                    </div>
+                    <Link as="a" href="/media" class="card-button text-center btn">More info</Link>
+                </div>
+            </div>
+            <div class="col-md-4 col-10 my-4 my-md-0  justify-content-center d-flex">
+                <div class="card-box shadow">
+                    <div class="body-bottom">
+                        <div class="card-details">
+                            <i class="fa-solid fa-user text-center fs-2 text-grey"></i>
+                            <p class="fs-3 text-blue">Adding Members</p>
+                        </div>
+                        <div>
+                            <p class="text-muted">Adding members to this application is simple! Either create the
+                                user an account or click invite a user and it will send them a login link.</p>
 
-
+                        </div>
+                    </div>
+                    <Link as="a" href="/users" class="card-button text-center btn">More info</Link>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 <script setup>
 import imageSmall from "../../../public/images/singlemedialogo.png"
@@ -131,30 +160,97 @@ import 'vue3-carousel/dist/carousel.css'
 import {Inertia} from "@inertiajs/inertia";
 import Alerts from "../Components/Alerts";
 
+defineProps({
+    files: Object
+})
 const username = computed(() => {
     return usePage().props.value.auth.user.username
 });
 let page = usePage().props.value;
 
-let form = useForm({
-    notes: '',
-});
 let first = useForm({
     message: '',
 });
-let submit = () => {
-    form.post('/test');
-}
 
-let addSuccess = () =>{
-Inertia.post('/add')
+let addSuccess = () => {
+    Inertia.post('/add')
 }
-let addSecond = () =>{
+let addSecond = () => {
     Inertia.post('/second')
 }
-let addDanger = () =>{
+let addDanger = () => {
     Inertia.post('/danger')
 }
 
 let scrolled = ref(true);
+
+let form = useForm({
+    files: null,
+});
+
+
+//move files around code
+let uploadFiles = (files) => {
+    Inertia.post(`/file`, {files: files}, {
+        preserveState: true,
+    });
+}
+
+let submit = () => {
+    form.post('/competitions', {
+        onSuccess: () => flash('Success', 'This form has submitted correctly.'),
+        onError: () => flash('Oops', 'This form has not submitted correctly please try again.', 'error'),
+    });
+}
+let draggable = ref();
+let dropped = ref();
+let active = ref(false);
+let processing = ref(false);
+let startDrag = (evt, fileId) => {
+    draggable.value = fileId
+}
+let onDrop = (evt, fileId) => {
+    if (processing.value !== true) {
+        setInactive()
+        dropped.value = fileId
+        Inertia.post(`/file/move`, {draggable: draggable.value, dropped: dropped.value}, {
+            onStart: () => setProcessingActive(),
+            onFinish: () => setProcessingInactive(),
+        })
+    }
+
+}
+
+function setActive() {
+    active.value = true
+}
+
+function setInactive() {
+    active.value = false
+}
+
+function setProcessingInactive() {
+    processing.value = false;
+}
+
+function setProcessingActive() {
+    processing.value = true;
+}
 </script>
+<style scoped>
+.drop-zone {
+    background-color: #eee;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.drag-el {
+    background-color: #fff;
+
+}
+
+.drop-image {
+    opacity: 30%;
+    border: black 2px solid;
+}
+</style>

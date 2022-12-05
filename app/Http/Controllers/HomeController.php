@@ -27,7 +27,14 @@ class HomeController extends Controller {
 
     public function index()
     {
-        return \Inertia\Inertia::render('Home');
+        return \Inertia\Inertia::render('Home', [
+            'files' => auth()->user()->photos()->map(fn($photo) => [
+                'url' => $photo->getFullUrl(),
+                'id' => $photo->id,
+                'name' => $photo->file_name,
+                'order' => $photo->order_column,
+            ]),
+        ]);
     }
 
     public function refund()
@@ -84,7 +91,6 @@ class HomeController extends Controller {
 //        'isv_partner_id' => env('VIVA_ISV_PARTNER_ID'),
 //        'isv_partner_api_key' => env('VIVA_ISV_PARTNER_API_KEY'),
 //    ],
-
 
         try
         {

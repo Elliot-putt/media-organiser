@@ -9,10 +9,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use phpDocumentor\Reflection\Types\False_;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable {
+class User extends Authenticatable implements HasMedia {
 
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +46,17 @@ class User extends Authenticatable {
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Spatie Media library allows file uploads
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('file');
+    }
+
+    public function photos()
+    {
+        return $this->getMedia('file');
+    }
 
     public function generateUsername(): string
     {
@@ -100,6 +113,27 @@ class User extends Authenticatable {
         }
 
         return $password;
+    }
+
+    public static function moveKeyBefore($arr, $find, $move)
+    {
+        if(! isset($arr[$find], $arr[$move]))
+        {
+            return $arr;
+        }
+
+        $elem = [$move => $arr[$move]];  // cache the element to be moved
+        $start = array_splice($arr, 0, array_search($find, array_keys($arr)));
+        unset($start[$move]);  // only important if $move is in $start
+
+        return $start + $elem + $arr;
+    }
+
+    public static function moveElement(&$array, $a, $b)
+    {
+        $p1 = array_splice($array, $a, 1);
+        $p2 = array_splice($array, 0, $b);
+        $array = array_merge($p2, $p1, $array);
     }
 
 }
